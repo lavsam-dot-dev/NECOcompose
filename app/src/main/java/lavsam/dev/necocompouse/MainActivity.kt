@@ -25,48 +25,59 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import lavsam.dev.necocompouse.ui.theme.NECOcompouseTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
-                ListItem(name = "Андрей Львов", prof = "Программист")
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircleItem()
             }
         }
     }
 }
 
 @Composable
+private fun CircleItem() {
+    val counter = remember {
+        mutableStateOf(0)
+    }
+    val color = remember {
+        mutableStateOf(Color.Blue)
+    }
+
+    Box(
+        modifier = Modifier
+            .size(200.dp)
+            .background(color = color.value, shape = CircleShape)
+            .clickable {
+
+                when(++counter.value){
+                    10 -> color.value = Color.Red
+                    20 -> color.value = Color.Green
+                }
+            },
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = counter.value.toString(),
+            style = TextStyle(color = Color.White, fontSize = 70.sp)
+        )
+
+    }
+}
+
+@Composable
 private fun ListItem(name: String, prof: String) {
-    var counter = remember {
+    val counter = remember {
         mutableStateOf(0)
     }
 
@@ -78,8 +89,7 @@ private fun ListItem(name: String, prof: String) {
                 counter.value++
                 //Log.d("MyLog", "Counter $counter.")
 
-            }
-                ,
+            },
         shape = RoundedCornerShape(15.dp),
         elevation = 5.dp
     ) {
