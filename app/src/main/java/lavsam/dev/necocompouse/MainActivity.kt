@@ -24,6 +24,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.textInputServiceFactory
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -61,14 +62,22 @@ private fun CircleItem() {
             .clickable {
 
                 when(++counter.value){
-                    10 -> color.value = Color.Red
-                    20 -> color.value = Color.Green
+                    5 -> color.value = Color.Red
+                    10 -> color.value = Color.Green
+                    15 -> color.value = Color.Magenta
+                    20 -> color.value = Color.Black
                 }
             },
         contentAlignment = Alignment.Center
     ) {
+        var txt = ""
+        if (counter.value >= 20)
+            txt = "FIN"
+        else
+            txt = counter.value.toString()
+
         Text(
-            text = counter.value.toString(),
+            text = txt,
             style = TextStyle(color = Color.White, fontSize = 70.sp)
         )
 
